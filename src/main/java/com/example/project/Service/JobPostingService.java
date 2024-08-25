@@ -32,7 +32,11 @@ public class JobPostingService {
             JobPosting existingJobPosting = jobPosting.get();
             existingJobPosting.setTitle(jobPostingDetails.getTitle());
             existingJobPosting.setDescription(jobPostingDetails.getDescription());
-            // Update other fields similarly
+            existingJobPosting.setLocation(jobPostingDetails.getLocation());
+            existingJobPosting.setCompany(jobPostingDetails.getCompany());
+            existingJobPosting.setSalaryRange(jobPostingDetails.getSalaryRange());
+            existingJobPosting.setRequiredSkills(jobPostingDetails.getRequiredSkills());
+            existingJobPosting.setApplicationDeadline(jobPostingDetails.getApplicationDeadline());
             return repository.save(existingJobPosting);
         }
         return null;
@@ -42,5 +46,7 @@ public class JobPostingService {
         repository.deleteById(id);
     }
 
-    // Implement search functionality here
+    public List<JobPosting> searchJobPostings(String keyword, List<String> locations, List<String> skills) {
+        return repository.searchJobPostings(keyword, locations, skills);
+    }
 }
